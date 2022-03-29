@@ -29,6 +29,7 @@ int main()
     cin>>num;
 
     ans = binary_search(a,num,5);
+    
     if(ans==1)
         cout<<num<<" is present in the array"<<endl;
     if(ans==0)

@@ -4,32 +4,29 @@ using namespace std;
 
 int main()
 {
-    int t;
-    cin>>t;
-    while(t--)
+    int flag=0, sum=0;
+    int arr[] = {24, 28, 48, 71, 86, 89, 92, 120, 194, 201};
+
+    int n = sizeof(arr)/sizeof(arr[0]);     // calculate the size of the array
+
+    for(int i = 0; i < n; i++)
     {
-        int n,key=0,flag=0,sum=0;
-        cin>>n;
-        int a[n];
-        for(int i=0;i<n;i++)
-            cin>>a[i];
-        int c=0;
-        for(int i=n-1;i>=0;i--)
+        for(int j = 1; j < n; j++)
         {
-            sum=a[i]-a[c];
-            for(int j=0;j<n;j++)
+            sum = arr[i] + arr[j];          // calculating the sum of index i and j to compare with k
+
+            for(int k = 1; k < n; k++)
             {
-                if(sum==a[j])
-                {
-                    cout<<c<<","<<j<<","<<i<<endl;
-                    flag=1;
+                if(sum == arr[k])           // check whether the sum of indexes i and j == k
+                {  
+                    cout << i+1 << ", "<< j+1 <<", "<< k+1 <<endl;
+                    return 0;
                 }
             }
-            c++;
         }
-        if(flag==0)
-        {
-            cout<<"No sequence"<<endl;
-        }
+    }
+    if(flag==0)                             // if there is no such pair 
+    {
+        cout<<"No sequence"<<endl;
     }
 }

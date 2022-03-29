@@ -3,12 +3,11 @@ using namespace std;
 int main()
 {
     
-    int t,num;      //Test Cases, number, counter array
+    int t,num;              //Test Cases, number
     cin>>t;      
     while(t--)
     {
-        //Size of the array
-        int n,c=0;
+        int n,c=0;                  //Size of the array
         cin>>n;
         int a[n];
         for(int i=0;i<n;i++)

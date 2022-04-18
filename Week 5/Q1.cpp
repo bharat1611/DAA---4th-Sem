@@ -9,8 +9,8 @@ int main()
     for(int i = 0 ; i < n ; i++)                    // finding the maximum character in the array
     {
         ch = (int)a[i];                          
-        if(max_index <= c)
-            max_index = c;
+        if(max_index <= ch)
+            max_index = ch;
     }
 
     int count_freq[max_index + 1] = {0};                   // initialize "count_freq" array to count frequency of character
@@ -18,7 +18,7 @@ int main()
     for(int j = 97; j <= max_index; j++)                   // loop to count the frequency of each character
     {
         ch = (int)a[i];
-        count_freq[c] = count_freq[c] + 1;
+        count_freq[ch] = count_freq[ch] + 1;
         i++;
     }
     max_count = 1;
@@ -35,7 +35,7 @@ int main()
     if(flag)
     {
         char e = (char)index;
-        cout<<e<<" "<<max_count<<endl;
+        cout<<e<<" "<<max_count - 1<<endl;
     }
     else
         cout<<"No Duplicates Present"<<endl;

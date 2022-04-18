@@ -33,6 +33,7 @@ void Quicksort(int arr[], int low, int high)
 
 int main()
 {
+    comp = 0, swaps = 0;
     int arr[] ={23,65,21,76,46,89,45,32};
     int n = sizeof(arr)/sizeof(arr[0]);
     Quicksort(arr, 0, n - 1);

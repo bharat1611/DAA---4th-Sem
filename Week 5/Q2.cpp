@@ -1,13 +1,13 @@
 #include <iostream>
+#include <algorithm>
 using namespace std;
 
-int comp = 0;
 void merge(int arr[], int low, int mid, int high)
 {
     int n1 = mid - low + 1;
     int n2 = high - mid;
-    int left[n1], right[n2];
 
+    int left[n1], right[n2];
     for(int i = 0; i < n1; i++)
         left[i] = arr[low + i];
     for(int j = 0; j < n2; j++)
@@ -28,24 +28,19 @@ void merge(int arr[], int low, int mid, int high)
             j++;
         }
         k++;
-        comp++;
     }
-
     while(i < n1)
     {
         arr[k] = left[i];
         i++;
         k++;
-        
     }
     while(j < n2)
     {
         arr[k] = right[j];
         j++;
         k++;
-        
     }
-    
 }
 
 void mergeSort(int arr[], int low, int high)
@@ -61,13 +56,30 @@ void mergeSort(int arr[], int low, int high)
 
 int main()
 {
-    int arr[] = {23,65,21,76,46,89,45,32};
+    int arr[] = {64, 28, 97, 40, 12, 72, 84, 24, 38, 10};
     int n = sizeof(arr)/sizeof(arr[0]);
-    mergeSort(arr, 0, n - 1);
+    int target = 50, flag = 0;
+    mergeSort(arr, 0 , n - 1);
 
-    for(int i = 0 ; i< n; i++)
+    // for(int i = 0; i < n; i++)
+    // {
+    //     cout<<arr[i]<< " ";
+    // }
+
+    int i = 0, j = n - 1;
+    while(i < j)
     {
-        cout<<arr[i]<<" " ;
+        if(arr[i] + arr[j] == target)
+        {
+            flag = 1;
+            cout<<arr[i]<< " "<<arr[j]<<" "<<endl;
+        }
+        if(arr[i] + arr[j] < target)
+            i++;
+        else
+            j--;
     }
-    cout<<endl<<"Comparisons : " <<comp;
+    if(!flag)
+        cout<<"No Such pairs exist";
+
 }

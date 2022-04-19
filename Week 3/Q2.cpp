@@ -1,39 +1,32 @@
-#include <iostream>
+
+#include<iostream>
 using namespace std;
 
-
-
-void insertion(int a[],int n)
+void selsort(int a[],int n)
 {
-    int i,j,t=0,comp = 0 , shfts = 0;
-    for(i=1;i<n;i++)
+    int c=0;
+    for(int i=0;i<n-1;i++)
     {
-        t=a[i];
-        j=i;
-        while(j>=1 && t<a[j-1])
+        int m=i;
+        for(int j=i+1;j<n;j++)
         {
-            a[j]=a[j-1];
-            j--;
-            comp++;
+            if(a[m]>a[j])
+            m=j;
         }
-        a[j]=t;
-        shfts++;
+        if(a[i]!=a[m])
+        {
+            int temp=a[i];
+            a[i]=a[m];
+            a[m]=temp;c++;
+        }
     }
-    for(int i = 0 ; i < n; i++)
-    {
-        cout<<a[i]<<" ";
-    }
-    cout<<endl<<comp<<"  "<<shfts<<endl;
+    cout<<"No of shifts : "<<c<<endl;
 }
-
 int main()
 {
-    int n;
-    cin>>n;
-    int a[n];
-    for(int i = 0 ; i < n; i++)
-    {
-        cin>>a[i];
-    }
-    insertion(a,n);
+    int a[] = {2,4,5,1,3,78,56,10};
+    int n = sizeof(a)/sizeof(a[0]);
+    selsort(a, n);
+    for(int i=0; i < n; i++)
+    cout<<a[i]<<" ";
 }

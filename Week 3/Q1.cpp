@@ -3,11 +3,12 @@ using namespace std;
 
 void Ins_sort(int a[],int n)
 {
-    int i,j,temp=0,comp = 0, shfts = 0;
-    for(int i=1;i < n; i++)
+    int i, j, temp = 0, comp = 0, shfts = 0;
+    
+    for(int i = 1; i < n; i++)
     {
         temp = a[i];
-        j = i-1;
+        j = i - 1;
         while(j>=0 && temp<a[j])
         {
             a[j+1] = a[j];

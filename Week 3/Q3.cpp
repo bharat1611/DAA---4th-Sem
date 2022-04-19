@@ -1,18 +1,27 @@
-#include <bits/stdc++.h>
+#include<bits/stdc++.h>
 using namespace std;
-
+void findDuplicate(int a[], int x)
+{
+    int flag = 0;
+    for(int i = 0; i < x; i++)
+    {
+        for(int j = i + 1; j < x; j++)
+        {
+            if(a[i] == a[j])
+            {
+                flag = 1;
+                 break;
+            }
+        }
+    }
+    if(flag)
+        cout<<"YES"<<endl;
+    else
+        cout<<"NO"<<endl;
+}
 int main()
 {
-    int n;
-    cin>>n;
-    int a[n];
-    for(int i = 0; i<n ; i++)
-    {
-        cin>>a[i];
-    }
-    sort(a,a+n);
-    for(int i = 0; i<n ; i++)
-    {
-        cout<<a[i]<<" " ;
-    }
+    int arr[] = {28,32,28,9,10};
+    int n = sizeof(arr)/sizeof(arr[0]);
+    findDuplicate(arr, n);
 }

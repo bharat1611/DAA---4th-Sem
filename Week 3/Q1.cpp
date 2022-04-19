@@ -24,7 +24,8 @@ void Ins_sort(int a[],int n)
     {
         cout<<a[i]<<" " ;
     }
-    cout<<endl<<comp<< " "<< shfts<<endl;
+    cout<<endl<<"Comparisons : "<<comp;
+    cout<<endl<<"Shifts : "<<shfts<<endl;
 }
 
 int main()

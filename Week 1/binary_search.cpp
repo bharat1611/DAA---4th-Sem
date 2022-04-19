@@ -7,7 +7,6 @@ int binary_search(int arr[], int num, int n)
     while( lb <= ub )
     {
         mid = lb + (ub-lb)/2;
-        cout<<lb<<" " << ub << " "<< mid<<endl;
         if(arr[mid] == num)
             return 1;
         if(arr[mid] < num)

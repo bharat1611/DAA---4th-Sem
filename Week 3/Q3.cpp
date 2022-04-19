@@ -21,7 +21,7 @@ void findDuplicate(int a[], int x)
 }
 int main()
 {
-    int arr[] = {28,32,28,9,10};
+    int arr[] = {75, 65, 1, 65, 2, 6, 86, 2, 75, 8};
     int n = sizeof(arr)/sizeof(arr[0]);
     findDuplicate(arr, n);
 }

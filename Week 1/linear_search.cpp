@@ -3,11 +3,11 @@ using namespace std;
 int main()
 {
     
-    int t,num;              //Test Cases, number
+    int t,num;
     cin>>t;      
     while(t--)
     {
-        int n,c=0;                  //Size of the array
+        int n,c=0;
         cin>>n;
         int a[n];
         for(int i=0;i<n;i++)

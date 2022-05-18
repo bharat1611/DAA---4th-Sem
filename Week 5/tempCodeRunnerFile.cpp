@@ -1,15 +1,4 @@
-int i = 0, j = n - 1;
-    while(i < j)
+    for(int i = 0; i < n; i++)
     {
-        if(arr[i] + arr[j] == target)
-        {
-            flag = 1;
-            cout<<arr[i]<< " "<<arr[j]<<" "<<endl;
-        }
-        if(arr[i] + arr[j] < target)
-            i++;
-        else
-            j--;
+        cout<<arr[i]<< " ";
     }
-    if(!flag)
-        cout<<"No Such pairs exist";

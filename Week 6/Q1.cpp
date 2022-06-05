@@ -20,6 +20,7 @@ public:
             l[j].push_back(i);
         }
     }
+
     bool isReachable(int source, int destination)
     {
         if(source == destination)
@@ -31,10 +32,10 @@ public:
         while(!q.empty()){
             // Do some work for every node
             int f = q.front();
-            cout << f << endl;
+            // cout << f << endl;
             q.pop();
 
-            //Push the nbrs of current node inside q if they are not already visited 
+            //Push the nbrs of current node inside q if they are not already visited and check if any neighbour is equal to destination
             for(auto nbr : l[f])
             {
                 if(nbr == destination)
@@ -61,9 +62,10 @@ int main()
     g.addEdge(4,5);
     g.addEdge(0,4);
     g.addEdge(3,4);
-    if(g.isReachable(1, 5))
-        cout << "1 is reachable from 5 is true " << endl;
+
+    if(g.isReachable(0, 5))
+        cout << endl << "1 is reachable from 5 is true " << endl;
     else
-        cout << "1 is reachable from 5 is false" << endl;
+        cout << endl << "1 is reachable from 5 is false" << endl;
     return 0;
 }

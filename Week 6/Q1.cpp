@@ -47,6 +47,7 @@ public:
                 }
             }
         }
+        delete []visited;
         return false;
     }
 
@@ -64,8 +65,8 @@ int main()
     g.addEdge(3,4);
 
     if(g.isReachable(0, 5))
-        cout << endl << "1 is reachable from 5 is true " << endl;
+        cout << "1 is reachable from 5 is true " << endl;
     else
-        cout << endl << "1 is reachable from 5 is false" << endl;
+        cout << "1 is reachable from 5 is false" << endl;
     return 0;
 }

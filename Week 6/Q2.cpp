@@ -1,53 +1,60 @@
-#include <list>
-#include <queue>
+
 #include <iostream>
+#include <queue>
+#define V 4
+ 
 using namespace std;
 
-class Graph{
-    int V;
-    list<int> *l;
-public:
-    Graph(int v)
-    {
-        V = v;
-        l = new list<int>[V];
-    }
-    void addEdge(int i, int j, bool undir = true)       // undir = true for undirected graph
-    {
-        l[i].push_back(j);
-        if(undir){
-            l[j].push_back(i);
-        }
-    }
-    bool isBipartite(int source)
-    {
-        int *color = new int[V]{-1};
-        // color -1 means unvisited, 0 means group A and 1 means group B
+bool isBipartite(int G[][V], int src)
+{
+    int colorArr[V];
+    for (int i = 0; i < V; ++i)
+        colorArr[i] = -1;
+ 
+    // Assign first color to source
+    colorArr[src] = 1;
+ 
+    queue <int> q;
+    q.push(src);
 
-        color[source] = 1;
-        queue<int>q;
-        q.push(source);
-
-    while(!q.empty())
+    while (!q.empty())
     {
-        // Dequeue first element from queue and store in f
-        int f = q.front();
+        int u = q.front();
         q.pop();
-
-        if(l[f] == l[f])           
-            return false;
-
-        for(auto nbr : l[f])
+ 
+        // Return false if there is a self-loop
+        if (G[u][u] == 1)
+        return false;
+ 
+        // Find all non-colored adjacent vertices
+        for (int v = 0; v < V; ++v)
         {
-            if(nbr && color[nbr] == -1){
-                color[nbr] = 1 - color[f];
-                q.push(nbr);
+    // An edge from u to v exists and destination v is not colored
+            if (G[u][v] && colorArr[v] == -1)
+            {
+                // Assign alternate color to this adjacent v of u
+                colorArr[v] = 1 - colorArr[u];
+                q.push(v);
             }
-            else if(nbr && color[nbr] == color[f])
+ 
+            // An edge from u to v exists and destination
+            // v is colored with same color as u
+            else if (G[u][v] && colorArr[v] == colorArr[u])
                 return false;
         }
     }
-
-    }
-
-};
+ 
+    // If we reach here, then all adjacent vertices can be colored with alternate color
+    return true;
+}
+int main()
+{
+    int G[][V] = {{0, 1, 0, 1},
+        {1, 0, 1, 0},
+        {0, 1, 0, 1},
+        {1, 0, 1, 0}
+    };
+ 
+    isBipartite(G, 0) ? cout << "Yes" : cout << "No";
+    return 0;
+}

@@ -1,80 +1,89 @@
-#include<bits/stdc++.h>
+#include <iostream>
+#include <vector>
+#include <list>
+#include <queue>
+#include <algorithm>
 using namespace std;
-struct node {
-    int u;
-    int v;
-    int wt; 
-    node(int first, int second, int weight) {
-        u = first;
-        v = second;
-        wt = weight;
+
+typedef vector<pair<int, pair<int, int>>> Graph;
+class G
+{
+    int V;
+    list<pair<int, int>> *adj;
+
+public:
+    G(int v)
+    {
+        V = v;
+        adj = new list<pair<int, int>>[V];
     }
+    void addEdge(int i, int j, int w)
+    {
+        adj[i].push_back(make_pair(j, w));
+        adj[j].push_back(make_pair(i, w));
+    }
+    Graph primMST();
 };
 
-bool comp(node a, node b) {
-    return a.wt > b.wt; 
-}
+Graph G::primMST()
+{
+    priority_queue<pair<int, int>, vector<pair<int, int>>, greater<pair<int, int>>> pq;
+    Graph res;
+    int source = 0;
+    vector<int> key(V, INT_MAX);
+    vector<int> parent(V, -1);
+    vector<bool> inMST(V, false);
+    pq.push(make_pair(0, source));
+    key[source] = 0;
 
-int findPar(int u, vector<int> &parent) {
-    if(u== parent[u]) 
-	   return u; 
-    return parent[u] = findPar(parent[u], parent); 
-}
+    while (!pq.empty())
+    {
+        int u = pq.top().second;
+        pq.pop();
 
-void unionn(int u, int v, vector<int> &parent, vector<int> &rank) {
-    u = findPar(u, parent);
-    v = findPar(v, parent);
-    if(rank[u] < rank[v]) {
-    	parent[u] = v;
-    }
-    else if(rank[v] < rank[u]) {
-    	parent[v] = u; 
-    }
-    else {
-    	parent[v] = u;
-    	rank[u]++; 
-    }
-}
-int main(){
-	int N,m;
-	cin>>N>>m;
-	vector<pair<int,int>> adj[N];   //undirected graph
-	cout<<"enter the edge and its weight"<<endl;
-	for (int i=0;i<m;i++)
-	{
-		int a,b,wt;
-		cin>>a>>b>>wt;
-		adj[a].push_back({b,wt});    //pushing only one edge because we only need one edge to sort rather it became duplicates while sorting later
-	}
-	vector<node> edges; 
-	
-	//converting adjacency list to the easy edge structure
-    for (int i=0;i<N;i++)
-	{
-		for (auto it:adj[i])
-		{
-			edges.push_back(node(i,it.first,it.second));
-		}
-	}
-	sort(edges.begin(), edges.end(), comp); 
-	
-	vector<int> parent(N);
-	for(int i = 0;i<N;i++) 
-	    parent[i] = i; 
-	vector<int> rank(N, 0); 
-	
-	int cost = 0;
-	vector<pair<int,int>> mst; 
-
-	for(auto it : edges) {
-	    if(findPar(it.v, parent) != findPar(it.u, parent))
+        if (inMST[u] == true)
+            continue;
+        inMST[u] = true;
+        for (auto i : adj[u])
         {
-	        cost += it.wt; 
-	        mst.push_back({it.u, it.v}); 
-	        unionn(it.u, it.v, parent, rank); 
-	    }
-	}
+            int v = i.first;  // destination
+            int w = i.second; // weight
 
-	cout << cost << endl;
-	for(auto it : mst) cout << it.first << " - " << it.second << endl;
+            if (inMST[v] == false && key[v] > w)
+            {
+                key[v] = w;
+                pq.push(make_pair(key[v], v));
+                parent[v] = u;
+            }
+        }
+    }
+    vector<pair<int,int>>weights;
+    for(int i = 0 ; i < V; i++)
+        weights.push_back(make_pair(i, key[i]));
+    
+    for(int i = 1 ; i < V; i++)
+        res.push_back(make_pair(weights[i].second, make_pair(i, parent[i])));
+    return res;
+
+}
+
+int main()
+{
+    int V = 6;
+    G g(V);
+    g.addEdge(0, 1, 6);
+    g.addEdge(0, 5, 4);
+    g.addEdge(1, 5, 5);
+    g.addEdge(1, 4, 1);
+    g.addEdge(1, 2, 7);
+    g.addEdge(2, 4, 9);
+    g.addEdge(2, 3, 8);
+    g.addEdge(4, 3, 3);
+    g.addEdge(4, 5, 2);
+    Graph res = g.primMST();
+    cout << "Weight" << "   " << "Source" << "    " << "Destination" << endl;
+    for (int i = 0; i < res.size(); i++)
+    {
+        cout << res[i].first << "         " << res[i].second.first << "        " << res[i].second.second << endl;
+    }
 }

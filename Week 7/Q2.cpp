@@ -24,9 +24,7 @@ int main(){
     int src;
     cin >> src; 
 
-
-    int inf = 10000000; 
-    vector<int> dist(N, inf); 
+    vector<int> dist(N, INT_MAX); 
 
     dist[src] = 0; 
 
